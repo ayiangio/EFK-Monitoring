@@ -1,0 +1,33 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+spec:
+  version: 7.14.1
+  count: 1
+  elasticsearchRef:
+    name: elastic
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: kibana
+    annotations:
+      kubernetes.io/ingress.class: logging
+spec:
+  tls:
+    - hosts:
+       - kibana.example.com
+      secretName: example-secret
+  rules:
+    - host: kibana.example.com
+      http:
+        paths:
+         - backend:
+            serviceName: kibana-kb-http
+            servicePort: 5601
+
