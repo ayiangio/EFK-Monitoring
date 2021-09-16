@@ -71,7 +71,7 @@ Example for Data hot with the spec for pods using limit resources, CPU 1 Core an
 Don't forget to equate the value like namespace and elastic cluster name.
 
 ```bash
-kubectl get secret `elastic-es-elastic-user` -o=jsonpath='{.data.elastic}' -n `logging` | base64 --decode
+kubectl get secret elastic-es-elastic-user -o=jsonpath='{.data.elastic}' -n logging | base64 --decode
 ```
 
 ## Deploy Fluent-bit Using Helm 
