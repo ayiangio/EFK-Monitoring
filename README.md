@@ -93,11 +93,29 @@ Before deploy the fluent-bit, rename the index-name and change the password for 
         Trace_Error On
 ```
 
+Fluentbit collecting all log service file from the cluster, you can specify the log file, change the path in this configuration, the name of the log file begins with the name of the pods
+```yaml
+  inputs: |
+    [INPUT]
+        Name tail
+        Path /var/log/containers/*
+        Parser service-parser
+        Tag kube.*
+        Mem_Buf_Limit 10MB
+        Skip_Long_Lines On
+        Read_from_Head true
+```
+
 ```bash
 helm install fluent-bit fluent/fluent-bit -n logging
 ```
 
 ## Deploy Kibana With Ingress
+Don't forget to equate the value with the elastic cluster name.
+```yaml
+  elasticsearchRef:
+    name: elastic
+```
 
 ```
 kubectl apply -f eck/kibana.yaml -n logging
