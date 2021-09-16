@@ -97,8 +97,6 @@ spec:
                 requests:
                   cpu: 100m
                   memory: 200Mi
-          nodeSelector:
-            cloud.google.com/gke-nodepool: warm-group
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
@@ -131,8 +129,6 @@ spec:
                 requests:
                   cpu: 100m
                   memory: 200Mi
-          nodeSelector:
-            cloud.google.com/gke-nodepool: cold-group
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
